@@ -1,6 +1,6 @@
-import { redirect } from "next/navigation";
-import { getSession, logout } from "@/lib";
-import LoginForm from "@/components/login-form";
+import { redirect } from 'next/navigation';
+import { getSession, logout } from '@/lib';
+import LoginForm from '@/components/login-form';
 
 export default async function Page() {
   const session = await getSession();
@@ -10,9 +10,9 @@ export default async function Page() {
 
       <form
         action={async () => {
-          "use server";
+          'use server';
           await logout();
-          redirect("/");
+          redirect('/');
         }}
       >
         <button type="submit">Logout</button>
