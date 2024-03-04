@@ -1,6 +1,6 @@
 "use client";
 import { useFormState } from "react-dom";
-import { login } from "@/lib";
+import { login } from "@/lib/actions";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -27,7 +27,12 @@ export default function LoginForm() {
               Email
             </Label>
 
-            <span className="text-xs text-slate-500">forgot password</span>
+            <a
+              className="transition hover:text-slate-500 text-xs hover:underline"
+              href="/dashboard/sign-up"
+            >
+              forgot password
+            </a>
           </div>
           <Input className="px-4" name="email" placeholder="Email" />
         </div>
