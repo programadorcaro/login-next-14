@@ -1,16 +1,18 @@
-"use server"
+"use server";
 
 import Cryptr from "cryptr";
 import { SignJWT, jwtVerify } from "jose";
 import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
-import { z } from 'zod'
+import { z } from "zod";
 
 const schema = z.object({
-  email: z.string({
-    invalid_type_error: 'Invalid Type',
-  }).email({ message: 'This is not a valid email format' }),
-})
+  email: z
+    .string({
+      invalid_type_error: "Invalid Type",
+    })
+    .email({ message: "This is not a valid email format" }),
+});
 
 const secretKey = "secret";
 const key = new TextEncoder().encode(secretKey);
@@ -33,24 +35,24 @@ export async function decrypt(input: string): Promise<any> {
 export async function login(prevState: any, formData: FormData) {
   // validate the payload
   const validatedFields = schema.safeParse({
-    email: formData.get('email'),
-  })
+    email: formData.get("email"),
+  });
 
   if (!validatedFields.success) {
     return {
-      errors: validatedFields.error.flatten().fieldErrors
-    }
+      errors: validatedFields.error.flatten().fieldErrors,
+    };
   }
 
-  const cryptr = new Cryptr('myTotallySecretKey');
-  const encryptedString = cryptr.encrypt(formData.get('password') as string);
+  const cryptr = new Cryptr("myTotallySecretKey");
+  const encryptedString = cryptr.encrypt(formData.get("password") as string);
   // const decryptedString = cryptr.decrypt(encryptedString);
   const password = encryptedString;
 
   const user = {
     email: formData.get("email"),
     password,
-    name: "John"
+    name: "John",
   };
 
   // Create the session
@@ -59,7 +61,7 @@ export async function login(prevState: any, formData: FormData) {
 
   // Save the session in a cookie
   cookies().set("session", session, { expires, httpOnly: true });
-  return { success: true }
+  return { success: true };
 }
 
 export async function logout() {
