@@ -35,6 +35,7 @@ export default function LoginForm() {
             </a>
           </div>
           <Input className="px-4" name="email" placeholder="Email" />
+          <Input className="sr-only" name="test" value={`${new Date()}`} />
         </div>
 
         {emailerrorMessage ? (
